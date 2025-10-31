@@ -50,7 +50,7 @@ fun Customtext(modifier: Modifier, text: String, fontSize: TextUnit) {
 @Composable
 fun CustomInit() {
 
-    var isTextClick by remember { mutableStateOf(false) }
+    var isTextClicked by remember { mutableStateOf(false) }
 
     MaterialTheme {
         Scaffold(
@@ -68,9 +68,9 @@ fun CustomInit() {
                 modifier = Modifier.clickable {
                     Log.i("jorgevc", "He dado un click a un card")
 
-                    Log.i("jorgevc", "valor de isTextClick -> $isTextClick antes del cambio")
-                    isTextClick = !isTextClick
-                    Log.i("jorgevc", "valor de isTextClick -> $isTextClick despues del cambio")
+                    Log.i("jorgevc", "valor de isTextClicked -> $isTextClicked antes del cambio")
+                    isTextClicked = !isTextClicked
+                    Log.i("jorgevc", "valor de isTextClicked -> $isTextClicked despues del cambio")
                     Log.i("jorgevc", "-----------------------------")
                 },
                 elevation = CardDefaults.elevatedCardElevation(5.dp),
@@ -81,7 +81,7 @@ fun CustomInit() {
                 ) {
                     Customtext(
                         modifier = Modifier.wrapContentSize().background(Color.Gray),
-                        text = "Hola ",
+                        text = if(isTextClicked) "Clickado" else "Hola",
                         fontSize = 24.sp
                     )
                 }
