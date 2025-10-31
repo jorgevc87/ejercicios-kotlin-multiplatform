@@ -18,6 +18,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
@@ -49,7 +50,7 @@ fun Customtext(modifier: Modifier, text: String, fontSize: TextUnit) {
 @Composable
 fun CustomInit() {
 
-    val isTextClick by remember { mutableStateOf(false) }
+    var isTextClick by remember { mutableStateOf(false) }
 
     MaterialTheme {
         Scaffold(
@@ -66,6 +67,11 @@ fun CustomInit() {
             Card(
                 modifier = Modifier.clickable {
                     Log.i("jorgevc", "He dado un click a un card")
+
+                    Log.i("jorgevc", "valor de isTextClick -> $isTextClick antes del cambio")
+                    isTextClick = !isTextClick
+                    Log.i("jorgevc", "valor de isTextClick -> $isTextClick despues del cambio")
+                    Log.i("jorgevc", "-----------------------------")
                 },
                 elevation = CardDefaults.elevatedCardElevation(5.dp),
             ) {
