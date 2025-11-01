@@ -27,10 +27,21 @@ kotlin {
     
     sourceSets {
         androidMain.dependencies {
+            /*
+            Librerias que solo funcionan para android
+             */
             implementation(compose.preview)
             implementation(libs.androidx.activity.compose)
         }
+        iosMain.dependencies {
+            /*
+            Librerias que solo funcionan para iOS
+             */
+        }
         commonMain.dependencies {
+            /*
+            Librerias que funcionan para iOS
+             */
             implementation(compose.runtime)
             implementation(compose.foundation)
             implementation(compose.material3)
