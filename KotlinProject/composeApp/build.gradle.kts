@@ -27,29 +27,25 @@ kotlin {
     
     sourceSets {
         androidMain.dependencies {
-            /*
-            Librerias que solo funcionan para android
-             */
             implementation(compose.preview)
             implementation(libs.androidx.activity.compose)
         }
-        iosMain.dependencies {
-            /*
-            Librerias que solo funcionan para iOS
-             */
-        }
         commonMain.dependencies {
-            /*
-            Librerias que funcionan para iOS y android
-             */
             implementation(compose.runtime)
-            implementation(compose.foundation)
+            api(compose.foundation)
+            api(compose.animation)
             implementation(compose.material3)
             implementation(compose.ui)
             implementation(compose.components.resources)
             implementation(compose.components.uiToolingPreview)
             implementation(libs.androidx.lifecycle.viewmodelCompose)
             implementation(libs.androidx.lifecycle.runtimeCompose)
+
+            // Navigation PreCompose
+            api("moe.tlaster:precompose:1.5.10")
+
+            // ViewModel
+            api("moe.tlaster:precompose-viewmodel:1.5.10")
         }
         commonTest.dependencies {
             implementation(libs.kotlin.test)
@@ -58,11 +54,11 @@ kotlin {
 }
 
 android {
-    namespace = "com.android.ios.cursokmp"
+    namespace = "com.android.ios.kotlinproject"
     compileSdk = libs.versions.android.compileSdk.get().toInt()
 
     defaultConfig {
-        applicationId = "com.android.ios.cursokmp"
+        applicationId = "com.android.ios.kotlinproject"
         minSdk = libs.versions.android.minSdk.get().toInt()
         targetSdk = libs.versions.android.targetSdk.get().toInt()
         versionCode = 1
