@@ -1,63 +1,52 @@
 package com.android.ios.kotlinproject
 
-import androidx.compose.material3.ColorScheme
+import androidx.compose.foundation.shape.AbsoluteCutCornerShape
 import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.lightColorScheme
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.unit.dp
 
 @Composable
-fun AppTheme() {
+fun AppTheme(content: @Composable () -> Unit) {
     MaterialTheme(
-        colorScheme = ColorScheme(
-            primary = TODO(),
-            onPrimary = TODO(),
-            primaryContainer = TODO(),
-            onPrimaryContainer = TODO(),
-            inversePrimary = TODO(),
-            secondary = TODO(),
-            onSecondary = TODO(),
-            secondaryContainer = TODO(),
-            onSecondaryContainer = TODO(),
-            tertiary = TODO(),
-            onTertiary = TODO(),
-            tertiaryContainer = TODO(),
-            onTertiaryContainer = TODO(),
-            background = TODO(),
-            onBackground = TODO(),
-            surface = TODO(),
-            onSurface = TODO(),
-            surfaceVariant = TODO(),
-            onSurfaceVariant = TODO(),
-            surfaceTint = TODO(),
-            inverseSurface = TODO(),
-            inverseOnSurface = TODO(),
-            error = TODO(),
-            onError = TODO(),
-            errorContainer = TODO(),
-            onErrorContainer = TODO(),
-            outline = TODO(),
-            outlineVariant = TODO(),
-            scrim = TODO(),
-            surfaceBright = TODO(),
-            surfaceDim = TODO(),
-            surfaceContainer = TODO(),
-            surfaceContainerHigh = TODO(),
-            surfaceContainerHighest = TODO(),
-            surfaceContainerLow = TODO(),
-            surfaceContainerLowest = TODO(),
-            primaryFixed = TODO(),
-            primaryFixedDim = TODO(),
-            onPrimaryFixed = TODO(),
-            onPrimaryFixedVariant = TODO(),
-            secondaryFixed = TODO(),
-            secondaryFixedDim = TODO(),
-            onSecondaryFixed = TODO(),
-            onSecondaryFixedVariant = TODO(),
-            tertiaryFixed = TODO(),
-            tertiaryFixedDim = TODO(),
-            onTertiaryFixed = TODO(),
-            onTertiaryFixedVariant = TODO()
+        lightColorScheme(
+            primary = Color.Black
+        ), shapes = MaterialTheme.shapes.copy(
+            small = AbsoluteCutCornerShape(0.dp),
+            medium = AbsoluteCutCornerShape(0.dp),
+            large = AbsoluteCutCornerShape(0.dp),
         )
     ) {
-
+        content
     }
 }
+
+@Composable
+fun getColorsTheme(): DarkModeColors {
+    val isDarkMode = false
+
+    val purple = Color(0xFF6A66FF)
+    val colorExpenseItem = if (isDarkMode) Color(0xFF090808) else Color(0xFFF1F1F1)
+    val backgroundColor = if (isDarkMode) Color(0xFF1E1C1C) else Color.White
+    val textColor = if (isDarkMode) Color.White else Color.Black
+    val addIconColor = if (isDarkMode) purple else Color.Black
+    val colorArrowRound = if (isDarkMode) purple else Color.Gray.copy(alpha = .2f)
+
+    return DarkModeColors(
+        purple, colorExpenseItem, backgroundColor, textColor, addIconColor, colorArrowRound
+    )
+}
+
+data class DarkModeColors(
+    val purple: Color,
+    val colorExpenseItem: Color,
+    val backgroundColor: Color,
+    val textColor: Color,
+    val addIconColor: Color,
+    val colorArrowRound: Color
+)
+
+
+
+
