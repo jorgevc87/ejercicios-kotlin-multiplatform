@@ -9,7 +9,7 @@ import moe.tlaster.precompose.PreComposeApp
 import org.jetbrains.compose.ui.tooling.preview.Preview
 
 @Composable
-@Preview
+@Preview(showBackground = true)
 fun App() {
     PreComposeApp {
         val colors = getColorsTheme()
