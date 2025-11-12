@@ -1,52 +1,60 @@
 package com.android.ios.kotlinproject
 
-import androidx.compose.foundation.shape.AbsoluteCutCornerShape
+import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.darkColorScheme
 import androidx.compose.material3.lightColorScheme
 import androidx.compose.runtime.Composable
-import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.unit.dp
+import com.android.ios.kotlinproject.utils.AppTypography
+import com.android.ios.kotlinproject.utils.md3DarkBackground
+import com.android.ios.kotlinproject.utils.md3DarkOnBackground
+import com.android.ios.kotlinproject.utils.md3DarkOnPrimary
+import com.android.ios.kotlinproject.utils.md3DarkOnPrimaryContainer
+import com.android.ios.kotlinproject.utils.md3DarkPrimary
+import com.android.ios.kotlinproject.utils.md3DarkPrimaryContainer
+import com.android.ios.kotlinproject.utils.md3DarkSurface
+import com.android.ios.kotlinproject.utils.md3LightBackground
+import com.android.ios.kotlinproject.utils.md3LightOnBackground
+import com.android.ios.kotlinproject.utils.md3LightOnPrimary
+import com.android.ios.kotlinproject.utils.md3LightOnPrimaryContainer
+import com.android.ios.kotlinproject.utils.md3LightPrimary
+import com.android.ios.kotlinproject.utils.md3LightPrimaryContainer
+import com.android.ios.kotlinproject.utils.md3LightSurface
 
 @Composable
-fun AppTheme(content: @Composable () -> Unit) {
+fun ExpensesTheme(
+    content: @Composable () -> Unit
+) {
+
+    val isDark: Boolean = isSystemInDarkTheme()
+    val colors = if (isDark) DarkColorScheme else LightColorScheme
+
     MaterialTheme(
-        lightColorScheme(
-            primary = Color.Black
-        ), shapes = MaterialTheme.shapes.copy(
-            small = AbsoluteCutCornerShape(0.dp),
-            medium = AbsoluteCutCornerShape(0.dp),
-            large = AbsoluteCutCornerShape(0.dp),
-        )
-    ) {
-        content
-    }
-}
-
-@Composable
-fun getColorsTheme(): DarkModeColors {
-    val isDarkMode = false
-
-    val purple = Color(0xFF6A66FF)
-    val colorExpenseItem = if (isDarkMode) Color(0xFF090808) else Color(0xFFF1F1F1)
-    val backgroundColor = if (isDarkMode) Color(0xFF1E1C1C) else Color.White
-    val textColor = if (isDarkMode) Color.White else Color.Black
-    val addIconColor = if (isDarkMode) purple else Color.Black
-    val colorArrowRound = if (isDarkMode) purple else Color.Gray.copy(alpha = .2f)
-
-    return DarkModeColors(
-        purple, colorExpenseItem, backgroundColor, textColor, addIconColor, colorArrowRound
+        colorScheme = colors,
+        typography = AppTypography,
+        shapes = androidx.compose.material3.Shapes(), // or shared shapes
+        content = content
     )
 }
 
-data class DarkModeColors(
-    val purple: Color,
-    val colorExpenseItem: Color,
-    val backgroundColor: Color,
-    val textColor: Color,
-    val addIconColor: Color,
-    val colorArrowRound: Color
+private val LightColorScheme = lightColorScheme(
+    primary = md3LightPrimary,
+    onPrimary = md3LightOnPrimary,
+    primaryContainer = md3LightPrimaryContainer,
+    onPrimaryContainer = md3LightOnPrimaryContainer,
+    background = md3LightBackground,
+    surface = md3LightSurface,
+    onBackground = md3LightOnBackground
 )
 
-
+private val DarkColorScheme = darkColorScheme(
+    primary = md3DarkPrimary,
+    onPrimary = md3DarkOnPrimary,
+    primaryContainer = md3DarkPrimaryContainer,
+    onPrimaryContainer = md3DarkOnPrimaryContainer,
+    background = md3DarkBackground,
+    surface = md3DarkSurface,
+    onBackground = md3DarkOnBackground
+)
 
 
