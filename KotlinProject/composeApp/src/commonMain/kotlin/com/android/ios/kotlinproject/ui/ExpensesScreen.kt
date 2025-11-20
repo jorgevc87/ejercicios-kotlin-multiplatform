@@ -23,6 +23,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import com.android.ios.kotlinproject.model.Expense
 
 @Composable
 fun ExpensesScreen(modifier: Modifier) {
@@ -106,6 +107,6 @@ fun AllExpensesHeader() {
 }
 
 @Composable
-fun ExpensesItem() {
+fun ExpensesItem(expense: Expense, onExpenseClick: (expense: Expense) -> Unit) {
 
 }
