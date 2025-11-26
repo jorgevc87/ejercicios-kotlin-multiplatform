@@ -1,6 +1,7 @@
 package com.android.ios.kotlinproject.ui
 
 import androidx.compose.foundation.Image
+import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
@@ -40,8 +41,8 @@ fun ExpensesScreen(modifier: Modifier) {
         modifier = modifier.fillMaxSize().padding(horizontal = 16.dp, vertical = 16.dp),
         verticalArrangement = Arrangement.spacedBy(8.dp)
     ) {
-        stickyHeader {
-            Column() {
+        stickyHeader() {
+            Column(modifier = Modifier.fillMaxWidth().background(Color.White)) {
                 ExpensesTotalHeader(1023.3)
                 AllExpensesHeader()
             }
@@ -89,7 +90,7 @@ fun ExpensesTotalHeader(total: Double) {
 fun AllExpensesHeader() {
 
     Row(
-        modifier = Modifier.padding(vertical = 16.dp),
+        modifier = Modifier.padding(vertical = 16.dp).background(Color.White),
         verticalAlignment = Alignment.CenterVertically
     ) {
         Text(
