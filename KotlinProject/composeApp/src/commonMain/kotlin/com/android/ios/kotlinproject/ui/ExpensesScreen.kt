@@ -32,10 +32,16 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.android.ios.kotlinproject.data.ExpenseManager
+import com.android.ios.kotlinproject.data.ExpenseRepoImpl
+import com.android.ios.kotlinproject.domain.ExpenseRepository
 import com.android.ios.kotlinproject.model.Expense
+import com.android.ios.kotlinproject.presentation.ExpensesUiState
+import com.android.ios.kotlinproject.presentation.ExpensesViewModel
 
 @Composable
-fun ExpensesScreen(modifier: Modifier) {
+fun ExpensesScreen(modifier: Modifier, uiState: ExpensesUiState) {
+
+    val viewModel = ExpensesViewModel(repo = ExpenseRepoImpl(ExpenseManager))
 
     LazyColumn(
         modifier = modifier.fillMaxSize().padding(horizontal = 16.dp, vertical = 16.dp),
@@ -43,11 +49,11 @@ fun ExpensesScreen(modifier: Modifier) {
     ) {
         stickyHeader() {
             Column(modifier = Modifier.fillMaxWidth().background(Color.White)) {
-                ExpensesTotalHeader(1023.3)
+                ExpensesTotalHeader(uiState.total)
                 AllExpensesHeader()
             }
         }
-        items(ExpenseManager.fakeExpensesList) { expense ->
+        items(uiState.expenses) { expense ->
             ExpensesItem(expense) {
 
             }

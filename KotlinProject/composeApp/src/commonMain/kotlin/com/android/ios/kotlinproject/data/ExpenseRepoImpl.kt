@@ -17,6 +17,10 @@ class ExpenseRepoImpl(private val expenseManager: ExpenseManager) : ExpenseRepos
         expenseManager.editExpense(expense)
     }
 
+    override fun deleteExpense(expense: Expense) {
+        expenseManager.deleteExpense(expense)
+    }
+
     override fun getCategories(): List<ExpenseCategory> {
         return expenseManager.getCategories()
     }

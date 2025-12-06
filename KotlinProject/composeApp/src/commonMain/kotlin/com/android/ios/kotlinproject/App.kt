@@ -9,6 +9,7 @@ import androidx.compose.material3.TopAppBar
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import com.android.ios.kotlinproject.presentation.ExpensesUiState
 import com.android.ios.kotlinproject.ui.ExpensesScreen
 import org.jetbrains.compose.ui.tooling.preview.Preview
 
@@ -23,7 +24,7 @@ fun App() {
                 navigationIcon = {},
                 actions = {})
         }) { innerPadding ->
-            ExpensesScreen(Modifier.padding(innerPadding))
+            ExpensesScreen(Modifier.padding(innerPadding), uiState = ExpensesUiState())
         }
     }
 }
