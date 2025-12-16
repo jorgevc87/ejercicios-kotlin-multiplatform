@@ -53,7 +53,7 @@ fun ExpensesScreen(modifier: Modifier, uiState: ExpensesUiState) {
                 AllExpensesHeader()
             }
         }
-        items(uiState.expenses) { expense ->
+        items(viewModel.uiState.value.expenses) { expense ->
             ExpensesItem(expense) {
 
             }

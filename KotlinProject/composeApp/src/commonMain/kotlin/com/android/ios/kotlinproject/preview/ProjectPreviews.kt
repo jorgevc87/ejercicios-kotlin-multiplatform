@@ -7,6 +7,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
+import com.android.ios.kotlinproject.App
 import com.android.ios.kotlinproject.data.ExpenseManager
 import com.android.ios.kotlinproject.model.Expense
 import com.android.ios.kotlinproject.model.ExpenseCategory
@@ -41,5 +42,12 @@ fun ExpensesItemPreview() {
         }
     }
 }
+
+@Composable
+@Preview(showBackground = true)
+fun AppPreview() {
+    App()
+}
+
 
 

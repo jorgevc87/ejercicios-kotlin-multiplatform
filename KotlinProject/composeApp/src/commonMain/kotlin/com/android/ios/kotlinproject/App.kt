@@ -9,22 +9,33 @@ import androidx.compose.material3.TopAppBar
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import com.android.ios.kotlinproject.data.ExpenseManager
+import com.android.ios.kotlinproject.data.ExpenseRepoImpl
 import com.android.ios.kotlinproject.presentation.ExpensesUiState
+import com.android.ios.kotlinproject.presentation.ExpensesViewModel
 import com.android.ios.kotlinproject.ui.ExpensesScreen
-import org.jetbrains.compose.ui.tooling.preview.Preview
+import moe.tlaster.precompose.PreComposeApp
+import moe.tlaster.precompose.viewmodel.viewModel
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun App() {
-    ExpensesTheme {
-        Scaffold(topBar = {
-            TopAppBar(
-                modifier = Modifier.background(Color.Yellow),
-                title = { Text("This my TopBar") },
-                navigationIcon = {},
-                actions = {})
-        }) { innerPadding ->
-            ExpensesScreen(Modifier.padding(innerPadding), uiState = ExpensesUiState())
+
+    PreComposeApp {
+        val viewmodel = viewModel(modelClass = ExpensesViewModel::class) {
+            ExpensesViewModel(ExpenseRepoImpl(ExpenseManager))
+        }
+
+        ExpensesTheme {
+            Scaffold(topBar = {
+                TopAppBar(
+                    modifier = Modifier.background(Color.Yellow),
+                    title = { Text("This my TopBar") },
+                    navigationIcon = {},
+                    actions = {})
+            }) { innerPadding ->
+                ExpensesScreen(Modifier.padding(innerPadding), uiState = ExpensesUiState())
+            }
         }
     }
 }
