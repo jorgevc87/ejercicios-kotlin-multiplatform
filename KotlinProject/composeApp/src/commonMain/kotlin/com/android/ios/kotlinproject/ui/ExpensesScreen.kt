@@ -33,10 +33,12 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.android.ios.kotlinproject.data.ExpenseManager
 import com.android.ios.kotlinproject.data.ExpenseRepoImpl
-import com.android.ios.kotlinproject.domain.ExpenseRepository
 import com.android.ios.kotlinproject.model.Expense
 import com.android.ios.kotlinproject.presentation.ExpensesUiState
 import com.android.ios.kotlinproject.presentation.ExpensesViewModel
+import com.android.ios.kotlinproject.utils.MDecimalFormatter
+
+val decimalFormatter = MDecimalFormatter("#,###.00")
 
 @Composable
 fun ExpensesScreen(modifier: Modifier, uiState: ExpensesUiState) {
@@ -49,12 +51,12 @@ fun ExpensesScreen(modifier: Modifier, uiState: ExpensesUiState) {
     ) {
         stickyHeader() {
             Column(modifier = Modifier.fillMaxWidth().background(Color.White)) {
-                ExpensesTotalHeader(uiState.total)
+                ExpensesTotalHeader(uiState.total, decimalFormatter)
                 AllExpensesHeader()
             }
         }
         items(viewModel.uiState.value.expenses) { expense ->
-            ExpensesItem(expense) {
+            ExpensesItem(expense, decimalFormatter) {
 
             }
         }
@@ -64,7 +66,8 @@ fun ExpensesScreen(modifier: Modifier, uiState: ExpensesUiState) {
 }
 
 @Composable
-fun ExpensesTotalHeader(total: Double) {
+fun ExpensesTotalHeader(total: Double, decimalFormatter: MDecimalFormatter) {
+
     Card(
         shape = RoundedCornerShape(30),
         elevation = CardDefaults.cardElevation(5.dp),
@@ -74,8 +77,9 @@ fun ExpensesTotalHeader(total: Double) {
             modifier = Modifier.fillMaxWidth().height(130.dp).padding(16.dp),
             contentAlignment = Alignment.CenterStart
         ) {
+
             Text(
-                text = "$$total",
+                text = "$${decimalFormatter.format(total)}",
                 fontSize = 30.sp,
                 fontWeight = FontWeight.ExtraBold,
                 color = Color.White
@@ -121,7 +125,11 @@ fun AllExpensesHeader() {
 }
 
 @Composable
-fun ExpensesItem(expense: Expense, onExpenseClick: (expense: Expense) -> Unit) {
+fun ExpensesItem(
+    expense: Expense,
+    decimalFormatter: MDecimalFormatter,
+    onExpenseClick: (expense: Expense) -> Unit
+) {
     val colors = MaterialTheme.colorScheme
 
     Card(
@@ -170,7 +178,7 @@ fun ExpensesItem(expense: Expense, onExpenseClick: (expense: Expense) -> Unit) {
             }
 
             Text(
-                text = "$${expense.amount}",
+                text = "$${decimalFormatter.format(expense.amount)}",
                 fontWeight = FontWeight.Bold,
                 fontSize = 20.sp,
                 color = colors.primary

@@ -1,6 +1,5 @@
 package com.android.ios.kotlinproject.presentation
 
-import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.android.ios.kotlinproject.domain.ExpenseRepository
 import com.android.ios.kotlinproject.model.Expense
@@ -8,6 +7,8 @@ import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
+import moe.tlaster.precompose.viewmodel.ViewModel
+import moe.tlaster.precompose.viewmodel.viewModelScope
 
 data class ExpensesUiState(
     val expenses: List<Expense> = emptyList(), val total: Double = 0.0

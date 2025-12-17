@@ -7,14 +7,15 @@ import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBar
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import com.android.ios.kotlinproject.data.ExpenseManager
 import com.android.ios.kotlinproject.data.ExpenseRepoImpl
-import com.android.ios.kotlinproject.presentation.ExpensesUiState
 import com.android.ios.kotlinproject.presentation.ExpensesViewModel
 import com.android.ios.kotlinproject.ui.ExpensesScreen
 import moe.tlaster.precompose.PreComposeApp
+import moe.tlaster.precompose.flow.collectAsStateWithLifecycle
 import moe.tlaster.precompose.viewmodel.viewModel
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -26,6 +27,8 @@ fun App() {
             ExpensesViewModel(ExpenseRepoImpl(ExpenseManager))
         }
 
+        val uiState by viewmodel.uiState.collectAsStateWithLifecycle()
+
         ExpensesTheme {
             Scaffold(topBar = {
                 TopAppBar(
@@ -34,7 +37,7 @@ fun App() {
                     navigationIcon = {},
                     actions = {})
             }) { innerPadding ->
-                ExpensesScreen(Modifier.padding(innerPadding), uiState = ExpensesUiState())
+                ExpensesScreen(Modifier.padding(innerPadding), uiState = uiState)
             }
         }
     }

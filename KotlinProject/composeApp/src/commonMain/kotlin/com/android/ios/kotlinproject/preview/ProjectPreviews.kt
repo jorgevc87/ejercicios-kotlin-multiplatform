@@ -14,13 +14,18 @@ import com.android.ios.kotlinproject.model.ExpenseCategory
 import com.android.ios.kotlinproject.ui.AllExpensesHeader
 import com.android.ios.kotlinproject.ui.ExpensesItem
 import com.android.ios.kotlinproject.ui.ExpensesTotalHeader
+import com.android.ios.kotlinproject.ui.decimalFormatter
+import com.android.ios.kotlinproject.utils.MDecimalFormatter
 import org.jetbrains.compose.ui.tooling.preview.Preview
 
 @Composable
 @Preview(showBackground = true)
 fun ExpensesTotalHeaderPreview() {
+
+    val decimalFormatter = MDecimalFormatter("#,###.00")
+
     Box(modifier = Modifier.padding(16.dp)) {
-        ExpensesTotalHeader(194.34)
+        ExpensesTotalHeader(194.34, decimalFormatter)
     }
 }
 
@@ -37,7 +42,7 @@ fun AllExpensesHeaderPreview() {
 fun ExpensesItemPreview() {
     Box(modifier = Modifier.padding(16.dp).background(Color.Red)) {
 
-        ExpensesItem(ExpenseManager.fakeExpensesList.first()) {
+        ExpensesItem(ExpenseManager.fakeExpensesList.first(), decimalFormatter) {
 
         }
     }
@@ -48,6 +53,3 @@ fun ExpensesItemPreview() {
 fun AppPreview() {
     App()
 }
-
-
-
