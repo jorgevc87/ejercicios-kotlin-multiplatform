@@ -1,7 +1,9 @@
 package com.android.ios.kotlinproject
 
 import androidx.compose.foundation.isSystemInDarkTheme
+import androidx.compose.material3.ColorScheme
 import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.Shapes
 import androidx.compose.material3.darkColorScheme
 import androidx.compose.material3.lightColorScheme
 import androidx.compose.runtime.Composable
@@ -26,15 +28,21 @@ fun ExpensesTheme(
     content: @Composable () -> Unit
 ) {
 
-    val isDark: Boolean = isSystemInDarkTheme()
-    val colors = if (isDark) DarkColorScheme else LightColorScheme
+    val colors = getColors()
 
     MaterialTheme(
         colorScheme = colors,
         typography = AppTypography,
-        shapes = androidx.compose.material3.Shapes(), // or shared shapes
+        shapes = Shapes(), // or shared shapes
         content = content
     )
+}
+
+@Composable
+fun getColors(): ColorScheme {
+    val isDark: Boolean = isSystemInDarkTheme()
+
+    return if (isDark) DarkColorScheme else LightColorScheme
 }
 
 private val LightColorScheme = lightColorScheme(
