@@ -58,9 +58,7 @@ fun ExpensesScreen(
             }
         }
         items(viewModel.uiState.value.expenses) { expense ->
-            ExpensesItem(expense, decimalFormatter) {
-                onExpenseClick(expense)
-            }
+            ExpensesItem(expense, decimalFormatter, onExpenseClick = onExpenseClick)
         }
     }
 

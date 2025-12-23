@@ -12,6 +12,7 @@ import com.android.ios.kotlinproject.ui.ExpensesScreen
 import moe.tlaster.precompose.flow.collectAsStateWithLifecycle
 import moe.tlaster.precompose.navigation.NavHost
 import moe.tlaster.precompose.navigation.Navigator
+import moe.tlaster.precompose.navigation.path
 import moe.tlaster.precompose.viewmodel.viewModel
 
 @Composable
@@ -37,8 +38,13 @@ fun Navigation(navigator: Navigator) {
         }
 
         scene(route = "/addExpenses/{id}") { backStackEntry ->
-            val idFromPath = backStackEntry.path
+            val idFromPath = backStackEntry.path<Long>("id")
 
+            val isAddExpense = idFromPath?.let { id ->
+                viewmodel.getExpenseWithId(id)
+            }
+
+            // Crear ExpenseDetailScreen
         }
     }
 }

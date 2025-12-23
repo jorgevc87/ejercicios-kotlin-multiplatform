@@ -1,6 +1,7 @@
 package com.android.ios.kotlinproject
 
 import androidx.compose.foundation.background
+import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Scaffold
@@ -30,7 +31,9 @@ fun App() {
         val uiState by viewmodel.uiState.collectAsStateWithLifecycle()
 
         ExpensesTheme {
-            Scaffold(topBar = {
+            Scaffold(
+                modifier = Modifier.fillMaxSize(),
+                topBar = {
                 TopAppBar(
                     modifier = Modifier.background(Color.Yellow),
                     title = { Text("This my TopBar") },
