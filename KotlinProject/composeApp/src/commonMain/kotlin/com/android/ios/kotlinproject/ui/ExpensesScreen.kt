@@ -41,7 +41,9 @@ import com.android.ios.kotlinproject.utils.MDecimalFormatter
 val decimalFormatter = MDecimalFormatter("#,###.00")
 
 @Composable
-fun ExpensesScreen(modifier: Modifier, uiState: ExpensesUiState) {
+fun ExpensesScreen(
+    modifier: Modifier, uiState: ExpensesUiState, onExpenseClick: (expense: Expense) -> Unit
+) {
 
     val viewModel = ExpensesViewModel(repo = ExpenseRepoImpl(ExpenseManager))
 
@@ -57,7 +59,7 @@ fun ExpensesScreen(modifier: Modifier, uiState: ExpensesUiState) {
         }
         items(viewModel.uiState.value.expenses) { expense ->
             ExpensesItem(expense, decimalFormatter) {
-
+                onExpenseClick(expense)
             }
         }
     }

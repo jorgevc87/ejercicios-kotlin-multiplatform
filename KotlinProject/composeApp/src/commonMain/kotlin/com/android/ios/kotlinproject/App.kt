@@ -37,7 +37,9 @@ fun App() {
                     navigationIcon = {},
                     actions = {})
             }) { innerPadding ->
-                ExpensesScreen(Modifier.padding(innerPadding), uiState = uiState)
+                ExpensesScreen(Modifier.padding(innerPadding), uiState = uiState) {
+
+                }
             }
         }
     }
