@@ -1,13 +1,17 @@
 package com.android.ios.kotlinproject
 
 import androidx.compose.foundation.background
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Adb
+import androidx.compose.material.icons.filled.Add
 import androidx.compose.material.icons.filled.Apps
 import androidx.compose.material.icons.filled.ArrowBack
 import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.compose.material3.FloatingActionButton
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.Scaffold
@@ -23,6 +27,7 @@ import androidx.compose.ui.unit.sp
 import com.android.ios.kotlinproject.data.ExpenseManager
 import com.android.ios.kotlinproject.data.ExpenseRepoImpl
 import com.android.ios.kotlinproject.data.TitleTopBarTypes
+import com.android.ios.kotlinproject.navigation.Navigation
 import com.android.ios.kotlinproject.presentation.ExpensesViewModel
 import com.android.ios.kotlinproject.ui.ExpensesScreen
 import moe.tlaster.precompose.PreComposeApp
@@ -53,47 +58,49 @@ fun App() {
 
             val isEditOrAddExpenses = titleTopBar != TitleTopBarTypes.DASHBOARD.value
 
-            Scaffold(
-                modifier = Modifier.fillMaxSize(),
-                topBar = {
-                    TopAppBar(
-                        navigationIcon = {
-                            if (isEditOrAddExpenses) {
-                                IconButton(
-                                    onClick = {
-                                        navigator.popBackStack()
-                                    }
-                                ) {
-                                    Icon(
-                                        modifier = Modifier.padding(start = 16.dp),
-                                        imageVector = Icons.Default.ArrowBack,
-                                        tint = colors.primary,
-                                        contentDescription = "Back Arrow"
-                                    )
-                                }
-                            } else {
-                                Icon(
-                                    modifier = Modifier.padding(start = 16.dp),
-                                    imageVector = Icons.Default.Apps,
-                                    tint = colors.primary,
-                                    contentDescription = "Dashboard Icon"
-                                )
-                            }
-                        },
-                        modifier = Modifier.fillMaxWidth().background(color = Color.Red),
-                        title = {
-                            Text(
-                                text = titleTopBar,
-                                fontSize = 25.sp,
-                                color = colors.primary
+            Scaffold(modifier = Modifier.fillMaxSize(), topBar = {
+                TopAppBar(navigationIcon = {
+                    if (isEditOrAddExpenses) {
+                        IconButton(
+                            onClick = {
+                                navigator.popBackStack()
+                            }) {
+                            Icon(
+                                modifier = Modifier.padding(start = 16.dp),
+                                imageVector = Icons.Default.ArrowBack,
+                                tint = colors.primary,
+                                contentDescription = "Back Arrow"
                             )
-                        },
-                        actions = {})
-                },
-                contentColor = Color.Red
-            ) { innerPadding ->
-                ExpensesScreen(Modifier.padding(innerPadding), uiState = uiState) {
-                    navigator.navigate("/addExpenses/${it.id}")
+                        }
+                        return@TopAppBar
+                    } else {
+                        Icon(
+                            modifier = Modifier.padding(start = 16.dp),
+                            imageVector = Icons.Default.Apps,
+                            tint = colors.primary,
+                            contentDescription = "Dashboard Icon"
+                        )
+                    }
+                }, modifier = Modifier.fillMaxWidth().background(color = Color.Red), title = {
+                    Text(
+                        text = titleTopBar, fontSize = 25.sp, color = colors.primary
+                    )
+                }, actions = {})
+            }, contentColor = Color.Red, floatingActionButton = {
+                FloatingActionButton(
+                    modifier = Modifier, onClick = {
+                        navigator.navigate("/addExpenses/")
+                    }) {
+                    Icon(
+                        modifier = Modifier,
+                        imageVector = Icons.Default.Add,
+                        tint = colors.primary,
+                        contentDescription = "Dashboard Icon"
+                    )
+                }
+            }) { innerPadding ->
+                Box(modifier = Modifier.padding(innerPadding)) {
+                    Navigation(navigator)
                 }
             }
         }
@@ -110,8 +117,7 @@ fun getTitleTopBar(navigator: Navigator): String {
         titleTopBar = TitleTopBarTypes.ADD
     }
 
-    val isEditAddExpense =
-        navigator.currentEntry.collectAsState(null).value?.path<Long>("id")
+    val isEditAddExpense = navigator.currentEntry.collectAsState(null).value?.path<Long>("id")
 
     isEditAddExpense?.let {
         titleTopBar = TitleTopBarTypes.EDIT

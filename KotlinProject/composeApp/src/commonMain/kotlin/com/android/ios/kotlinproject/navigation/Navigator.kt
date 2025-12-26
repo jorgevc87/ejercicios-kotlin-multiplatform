@@ -4,6 +4,7 @@ import androidx.compose.foundation.background
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
+import com.android.ios.kotlinproject.ExpensesDetailScreen
 import com.android.ios.kotlinproject.data.ExpenseManager
 import com.android.ios.kotlinproject.data.ExpenseRepoImpl
 import com.android.ios.kotlinproject.getColors
@@ -40,11 +41,13 @@ fun Navigation(navigator: Navigator) {
         scene(route = "/addExpenses/{id}") { backStackEntry ->
             val idFromPath = backStackEntry.path<Long>("id")
 
-            val isAddExpense = idFromPath?.let { id ->
+            val expense = idFromPath?.let { id ->
                 viewmodel.getExpenseWithId(id)
             }
 
-            // Crear ExpenseDetailScreen
+            ExpensesDetailScreen(expenseToEdit = expense) {
+
+            }
         }
     }
 }
