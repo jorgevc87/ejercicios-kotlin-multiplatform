@@ -5,8 +5,8 @@ import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.Adb
 import androidx.compose.material.icons.filled.Add
 import androidx.compose.material.icons.filled.Apps
 import androidx.compose.material.icons.filled.ArrowBack
@@ -29,7 +29,6 @@ import com.android.ios.kotlinproject.data.ExpenseRepoImpl
 import com.android.ios.kotlinproject.data.TitleTopBarTypes
 import com.android.ios.kotlinproject.navigation.Navigation
 import com.android.ios.kotlinproject.presentation.ExpensesViewModel
-import com.android.ios.kotlinproject.ui.ExpensesScreen
 import moe.tlaster.precompose.PreComposeApp
 import moe.tlaster.precompose.flow.collectAsStateWithLifecycle
 import moe.tlaster.precompose.navigation.Navigator
@@ -87,16 +86,23 @@ fun App() {
                     )
                 }, actions = {})
             }, contentColor = Color.Red, floatingActionButton = {
-                FloatingActionButton(
-                    modifier = Modifier, onClick = {
-                        navigator.navigate("/addExpenses/")
-                    }) {
-                    Icon(
-                        modifier = Modifier,
-                        imageVector = Icons.Default.Add,
-                        tint = colors.primary,
-                        contentDescription = "Dashboard Icon"
-                    )
+
+                val isOnAddExpense =
+                    navigator.currentEntry.collectAsState(null).value?.route?.route.equals("/addExpenses/{id}?")
+
+                if (!isOnAddExpense) {
+                    FloatingActionButton(
+                        modifier = Modifier, onClick = {
+                            navigator.navigate("/addExpenses")
+                        }, shape = RoundedCornerShape(50)
+                    ) {
+                        Icon(
+                            modifier = Modifier,
+                            imageVector = Icons.Default.Add,
+                            tint = colors.primary,
+                            contentDescription = "Dashboard Icon"
+                        )
+                    }
                 }
             }) { innerPadding ->
                 Box(modifier = Modifier.padding(innerPadding)) {
@@ -112,7 +118,7 @@ fun getTitleTopBar(navigator: Navigator): String {
     var titleTopBar = TitleTopBarTypes.DASHBOARD
 
     val isOnAddExpense =
-        navigator.currentEntry.collectAsState(null).value?.route?.route.equals("/addExpenses/{id}")
+        navigator.currentEntry.collectAsState(null).value?.route?.route.equals("/addExpenses/{id}?")
     if (isOnAddExpense) {
         titleTopBar = TitleTopBarTypes.ADD
     }

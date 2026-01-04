@@ -38,15 +38,21 @@ fun Navigation(navigator: Navigator) {
             }
         }
 
-        scene(route = "/addExpenses/{id}") { backStackEntry ->
+        scene(route = "/addExpenses/{id}?") { backStackEntry ->
             val idFromPath = backStackEntry.path<Long>("id")
 
-            val expense = idFromPath?.let { id ->
+            val expenseToEditOrAdd = idFromPath?.let { id ->
                 viewmodel.getExpenseWithId(id)
             }
 
-            ExpensesDetailScreen(expenseToEdit = expense) {
+            ExpensesDetailScreen(expenseToEdit = expenseToEditOrAdd, categoryList = viewmodel.getCategories()) { expense ->
+                if (expenseToEditOrAdd == null) {
+                    viewmodel.addExpense(expense)
+                } else {
+                    viewmodel.editExpense(expense)
+                }
 
+                navigator.popBackStack()
             }
         }
     }

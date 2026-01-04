@@ -1,8 +1,8 @@
 package com.android.ios.kotlinproject.presentation
 
-import androidx.lifecycle.viewModelScope
 import com.android.ios.kotlinproject.domain.ExpenseRepository
 import com.android.ios.kotlinproject.model.Expense
+import com.android.ios.kotlinproject.model.ExpenseCategory
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.update
@@ -31,27 +31,27 @@ class ExpensesViewModel(private val repo: ExpenseRepository) : ViewModel() {
         }
     }
 
-    private fun getAllExpenses() {
+    fun getAllExpenses() {
         viewModelScope.launch {
             updateState()
         }
     }
 
-    private fun addExpense(expense: Expense) {
+    fun addExpense(expense: Expense) {
         viewModelScope.launch {
             repo.addExpense(expense)
             updateState()
         }
     }
 
-    private fun editExpense(expense: Expense) {
+    fun editExpense(expense: Expense) {
         viewModelScope.launch {
             repo.editExpense(expense)
             updateState()
         }
     }
 
-    private fun deleteExpense(expense: Expense) {
+    fun deleteExpense(expense: Expense) {
         viewModelScope.launch {
             repo.deleteExpense(expense)
             updateState()
@@ -60,5 +60,9 @@ class ExpensesViewModel(private val repo: ExpenseRepository) : ViewModel() {
 
     fun getExpenseWithId(id: Long): Expense {
         return allExpenses.first { it.id == id }
+    }
+
+    fun getCategories(): List<ExpenseCategory> {
+        return repo.getCategories()
     }
 }
